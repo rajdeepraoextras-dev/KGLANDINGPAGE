@@ -16,6 +16,10 @@
             background: linear-gradient(90deg, #FF5233 0%, #FF7A5C 100%);
             box-shadow: 0 10px 25px -5px rgba(255, 82, 51, 0.3);
         }
+        .whatsapp-gradient {
+            background: linear-gradient(90deg, #25D366 0%, #2FE077 100%);
+            box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.3);
+        }
         /* Continuous pulse for the top button to grab attention */
         .btn-attention {
             animation: softPulse 2s infinite;
@@ -69,7 +73,8 @@
                 हाटा के बेहतरीन रेस्तरां से गरमा-गरम खाना अब सिर्फ एक क्लिक की दूरी पर।
             </p>
 
-            <div class="w-full max-w-sm mx-auto mb-12">
+            <div class="w-full max-w-md mx-auto mb-12 space-y-3">
+                <!-- Play Store Button -->
                 <a href="https://linkly.link/2VyeV" 
                    target="_blank" 
                    class="cta-gradient w-full py-5 px-8 rounded-2xl text-white text-xl font-bold shadow-2xl flex items-center justify-center gap-3 transition-transform hover:scale-105 active:scale-95">
@@ -78,6 +83,17 @@
                     </svg>
                     <span>Play Store से डाउनलोड करें</span>
                 </a>
+
+                <!-- WhatsApp Order Button -->
+                <a href="https://wa.me/918149875162?text=नमस्ते%20KhanaGO,%20मुझे%20खाना%20ऑर्डर%20करना%20है।" 
+                   target="_blank" 
+                   class="whatsapp-gradient w-full py-5 px-8 rounded-2xl text-white text-xl font-bold shadow-2xl flex items-center justify-center gap-3 transition-transform hover:scale-105 active:scale-95">
+                    <svg class="w-8 h-8 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.539 2.016 2.045-.536c.947.517 1.997.831 3.245.831 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.766-5.77-5.766m3.915 7.92c-.16.447-.894.819-1.223.882-.269.051-.62.091-1.81-.393-1.513-.617-2.486-2.153-2.561-2.253-.075-.101-.611-.813-.611-1.55 0-.737.388-1.1.53-1.25.14-.15.31-.188.412-.188.103 0 .205 0 .292.004.1.004.225-.039.352.271.127.31.435 1.06.473 1.138.038.077.064.168.013.271-.051.102-.077.168-.154.258-.077.089-.162.199-.231.269-.077.077-.157.162-.068.316.088.154.394.65.845 1.051.58.515 1.069.675 1.223.751.154.077.243.064.333-.038.09-.101.388-.451.49-.605.103-.154.205-.128.346-.077.141.051.896.422 1.05.499.154.077.256.115.295.18.038.064.038.371-.122.818"/>
+                    </svg>
+                    <span class="whitespace-nowrap">अभी WhatsApp के ज़रिए ऑर्डर करें</span>
+                </a>
+
                 <p class="mt-4 text-gray-500 text-sm font-medium">✨ सुरक्षित और आसान पेमेंट</p>
             </div>
         </div>
