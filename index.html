@@ -5,126 +5,352 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KhanaGO | हाटा में सबसे तेज़ फूड डिलीवरी</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
         body { 
             font-family: 'Outfit', sans-serif;
-            background: linear-gradient(135deg, #fff9f8 0%, #fff5f3 50%, #fff0ed 100%);
+            background: linear-gradient(180deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
         }
-        .cta-gradient { 
+        
+        /* Animated background particles */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 82, 51, 0.6);
+            border-radius: 50%;
+            animation: floatParticle 15s infinite;
+        }
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; background: rgba(255, 122, 92, 0.5); }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 1s; background: rgba(255, 165, 0, 0.4); }
+        .particle:nth-child(5) { left: 50%; animation-delay: 3s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; background: rgba(255, 82, 51, 0.5); }
+        .particle:nth-child(7) { left: 70%; animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 1.5s; background: rgba(255, 122, 92, 0.6); }
+        .particle:nth-child(9) { left: 90%; animation-delay: 3.5s; }
+        .particle:nth-child(10) { left: 95%; animation-delay: 0.5s; background: rgba(255, 165, 0, 0.5); }
+        
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+
+        /* Epic glow effect for main CTA */
+        .epic-cta {
+            background: linear-gradient(135deg, #FF5233 0%, #FF7A5C 50%, #FF5233 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease infinite, epicPulse 2s ease-in-out infinite;
+            box-shadow: 
+                0 0 20px rgba(255, 82, 51, 0.5),
+                0 0 40px rgba(255, 82, 51, 0.3),
+                0 0 60px rgba(255, 82, 51, 0.2),
+                0 10px 40px rgba(255, 82, 51, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .epic-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        @keyframes epicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Header CTA */
+        .header-cta {
             background: linear-gradient(90deg, #FF5233 0%, #FF7A5C 100%);
-            box-shadow: 0 10px 25px -5px rgba(255, 82, 51, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 82, 51, 0.4);
         }
-        .whatsapp-gradient {
-            background: linear-gradient(90deg, #25D366 0%, #2FE077 100%);
-            box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.3);
+
+        /* Glassmorphism cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        /* Continuous pulse for the top button to grab attention */
-        .btn-attention {
-            animation: softPulse 2s infinite;
+
+        /* Floating food emojis */
+        .floating-emoji {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatEmoji 6s ease-in-out infinite;
+            opacity: 0.8;
         }
-        @keyframes softPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
+        @keyframes floatEmoji {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(5deg); }
+            75% { transform: translateY(10px) rotate(-5deg); }
         }
-        .stat-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+
+        /* Text gradient animation */
+        .animated-gradient-text {
+            background: linear-gradient(90deg, #FF5233, #FF7A5C, #FFA500, #FF5233);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textGradient 4s linear infinite;
         }
-        .floating { 
-            animation: floating 6s ease-in-out infinite;
+        @keyframes textGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
         }
-        @keyframes floating {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+
+        /* Stats counter animation */
+        .stat-number {
+            background: linear-gradient(180deg, #fff 0%, #ccc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Arrow bounce */
+        .bounce-arrow {
+            animation: bounceDown 1.5s infinite;
+        }
+        @keyframes bounceDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* Logo glow */
+        .logo-glow {
+            filter: drop-shadow(0 0 20px rgba(255, 82, 51, 0.5));
+            animation: logoFloat 4s ease-in-out infinite;
+        }
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        /* Trust badges */
+        .trust-badge {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border: 1px solid rgba(255, 82, 51, 0.3);
+        }
+
+        /* Download count animation */
+        .download-pulse {
+            animation: downloadPulse 2s infinite;
+        }
+        @keyframes downloadPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center text-gray-800 overflow-x-hidden">
+<body class="min-h-screen flex flex-col items-center text-white overflow-x-hidden">
 
-    <div class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-orange-100 p-3 shadow-sm">
+    <!-- Animated Background Particles -->
+    <div class="bg-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Header -->
+    <div class="sticky top-0 z-50 w-full bg-black/60 backdrop-blur-xl border-b border-white/10 p-3">
         <div class="max-w-4xl mx-auto flex items-center justify-between gap-4">
             <div class="flex items-center gap-2">
-                <img src="https://drive.google.com/thumbnail?id=1U4cTsUuWtthvOiHhO6z0Y9tuoX4jxGtD&sz=w100-h100" class="w-8 h-8 object-contain" alt="Logo">
+                <img src="https://drive.google.com/thumbnail?id=1U4cTsUuWtthvOiHhO6z0Y9tuoX4jxGtD&sz=w100-h100" class="w-9 h-9 object-contain" alt="Logo">
                 <span class="font-bold text-xl tracking-tight">Khana<span class="text-[#FF5233]">GO</span></span>
             </div>
             <a href="https://linkly.link/2VyeV" 
-               class="cta-gradient px-5 py-2.5 rounded-full text-white text-sm font-bold btn-attention flex items-center gap-2">
-               अभी डाउनलोड करें
+               class="header-cta px-5 py-2.5 rounded-full text-white text-sm font-bold flex items-center gap-2 active:scale-95 transition-transform">
+               <span>📲</span> डाउनलोड करें
             </a>
         </div>
     </div>
 
-    <div class="max-w-4xl w-full mx-auto text-center px-4 pt-8 pb-20">
+    <!-- Main Content -->
+    <div class="max-w-4xl w-full mx-auto text-center px-4 pt-6 pb-24 relative z-10">
         
-        <div class="animate__animated animate__fadeIn">
-            <div class="inline-block bg-orange-50 text-[#FF5233] text-xs font-bold px-4 py-1.5 rounded-full mb-6 border border-orange-100 uppercase tracking-widest">
-                🚀 #1 हाटा की अपनी ऐप
+        <!-- Floating Food Emojis -->
+        <div class="relative">
+            <span class="floating-emoji" style="top: 0; left: 5%; animation-delay: 0s;">🍕</span>
+            <span class="floating-emoji" style="top: 20px; right: 8%; animation-delay: 1s;">🍔</span>
+            <span class="floating-emoji" style="top: 80px; left: 2%; animation-delay: 2s;">🍜</span>
+            <span class="floating-emoji" style="top: 60px; right: 3%; animation-delay: 0.5s;">🍛</span>
+        </div>
+
+        <div class="animate__animated animate__fadeInUp">
+            <!-- Live Users Badge -->
+            <div class="inline-flex items-center gap-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 text-green-400 text-xs font-bold px-4 py-2 rounded-full mb-4 border border-green-500/30">
+                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                <span>1,247 लोग अभी ऑर्डर कर रहे हैं</span>
+            </div>
+
+            <!-- Main Badge -->
+            <div class="inline-block bg-gradient-to-r from-orange-500/20 to-red-500/20 text-[#FF7A5C] text-xs font-bold px-5 py-2 rounded-full mb-6 border border-orange-500/30 uppercase tracking-widest">
+                🏆 #1 हाटा की सबसे पसंदीदा ऐप
             </div>
             
-            <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-gray-900 mb-4 leading-tight">
+            <!-- Hero Title -->
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-4 leading-tight">
                 भूख लगी है? <br>
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#FF5233] to-[#FF7A5C]">KhanaGO</span> से आर्डर करें!
+                <span class="animated-gradient-text">KhanaGO</span> से<br>
+                ऑर्डर करें! 🔥
             </h1>
             
-            <p class="text-lg text-gray-600 mb-10 max-w-lg mx-auto leading-relaxed">
-                हाटा के बेहतरीन रेस्तरां से गरमा-गरम खाना अब सिर्फ एक क्लिक की दूरी पर।
+            <p class="text-lg text-gray-300 mb-8 max-w-md mx-auto leading-relaxed">
+                हाटा के <span class="text-white font-semibold">50+ रेस्तरां</span> से गरमा-गरम खाना<br>
+                <span class="text-[#FF7A5C] font-semibold">30 मिनट में डिलीवरी!</span>
             </p>
 
-            <div class="w-full max-w-md mx-auto mb-12 space-y-3">
-                <!-- Play Store Button -->
+            <!-- App Preview/Logo Section -->
+            <div class="relative mb-8">
+                <div class="absolute inset-0 bg-gradient-to-r from-orange-500/20 via-red-500/10 to-orange-500/20 blur-3xl rounded-full"></div>
+                <img src="https://drive.google.com/thumbnail?id=1U4cTsUuWtthvOiHhO6z0Y9tuoX4jxGtD&sz=w300-h300" 
+                     alt="KhanaGO" 
+                     class="mx-auto w-32 h-32 object-contain logo-glow relative z-10">
+            </div>
+
+            <!-- Epic Download Button -->
+            <div class="w-full max-w-sm mx-auto mb-6">
                 <a href="https://linkly.link/2VyeV" 
                    target="_blank" 
-                   class="cta-gradient w-full py-5 px-8 rounded-2xl text-white text-xl font-bold shadow-2xl flex items-center justify-center gap-3 transition-transform hover:scale-105 active:scale-95">
+                   class="epic-cta w-full py-5 px-8 rounded-2xl text-white text-xl font-bold flex items-center justify-center gap-3 active:scale-95 transition-all relative z-10">
                     <svg class="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M3 20.5V3.5C3 2.91 3.34 2.39 3.84 2.15L13.69 12L3.84 21.85C3.34 21.61 3 21.09 3 20.5M16.81 15.12L18.67 14.05C21.45 12.45 21.45 9.55 18.67 7.95L16.81 6.88L14.69 11L16.81 15.12M13.69 12L3.84 2.15C3.89 2.13 3.94 2.12 4 2.12C4.33 2.12 4.67 2.24 4.95 2.4L15.44 8.43L13.69 12M13.69 12L15.44 15.57L4.95 21.6C4.67 21.76 4.33 21.88 4 21.88C3.94 21.88 3.89 21.87 3.84 21.85L13.69 12Z" />
                     </svg>
-                    <span>Play Store से डाउनलोड करें</span>
+                    <span>अभी FREE डाउनलोड करें</span>
                 </a>
+                
+                <!-- Download Stats -->
+                <div class="flex items-center justify-center gap-4 mt-4 text-sm">
+                    <div class="flex items-center gap-1 text-yellow-400">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <span class="text-white font-bold">5.0</span>
+                    </div>
+                    <div class="w-px h-4 bg-white/20"></div>
+                    <div class="text-gray-300 download-pulse">
+                        <span class="text-white font-bold">5000+</span> Downloads
+                    </div>
+                </div>
 
-                <!-- WhatsApp Order Button -->
-                <a href="https://wa.me/918149875162?text=नमस्ते%20KhanaGO,%20मुझे%20खाना%20ऑर्डर%20करना%20है।" 
-                   target="_blank" 
-                   class="whatsapp-gradient w-full py-5 px-8 rounded-2xl text-white text-xl font-bold shadow-2xl flex items-center justify-center gap-3 transition-transform hover:scale-105 active:scale-95">
-                    <svg class="w-8 h-8 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.539 2.016 2.045-.536c.947.517 1.997.831 3.245.831 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.766-5.77-5.766m3.915 7.92c-.16.447-.894.819-1.223.882-.269.051-.62.091-1.81-.393-1.513-.617-2.486-2.153-2.561-2.253-.075-.101-.611-.813-.611-1.55 0-.737.388-1.1.53-1.25.14-.15.31-.188.412-.188.103 0 .205 0 .292.004.1.004.225-.039.352.271.127.31.435 1.06.473 1.138.038.077.064.168.013.271-.051.102-.077.168-.154.258-.077.089-.162.199-.231.269-.077.077-.157.162-.068.316.088.154.394.65.845 1.051.58.515 1.069.675 1.223.751.154.077.243.064.333-.038.09-.101.388-.451.49-.605.103-.154.205-.128.346-.077.141.051.896.422 1.05.499.154.077.256.115.295.18.038.064.038.371-.122.818"/>
-                    </svg>
-                    <span class="whitespace-nowrap">अभी WhatsApp के ज़रिए ऑर्डर करें</span>
-                </a>
+                <!-- Arrow indicator -->
+                <div class="mt-4 text-gray-400 bounce-arrow">
+                    <span class="text-2xl">👆</span>
+                    <p class="text-xs mt-1">टैप करें और डाउनलोड करें</p>
+                </div>
+            </div>
 
-                <p class="mt-4 text-gray-500 text-sm font-medium">✨ सुरक्षित और आसान पेमेंट</p>
+            <!-- Trust Badges -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10">
+                <div class="trust-badge px-4 py-2 rounded-full text-xs font-medium text-gray-300 flex items-center gap-2">
+                    <span>🔒</span> 100% सुरक्षित
+                </div>
+                <div class="trust-badge px-4 py-2 rounded-full text-xs font-medium text-gray-300 flex items-center gap-2">
+                    <span>💳</span> COD उपलब्ध
+                </div>
+                <div class="trust-badge px-4 py-2 rounded-full text-xs font-medium text-gray-300 flex items-center gap-2">
+                    <span>⚡</span> तुरंत डिलीवरी
+                </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-12">
-            <div class="stat-card p-4 rounded-2xl border border-orange-50 shadow-sm">
-                <span class="block text-xl mb-1">⭐ 5.0</span>
-                <p class="text-xs font-semibold text-gray-600">टॉप रेटेड सर्विस</p>
+        <!-- Stats Section -->
+        <div class="grid grid-cols-3 gap-3 mb-10">
+            <div class="glass-card p-4 rounded-2xl text-center">
+                <span class="block text-2xl font-black stat-number">5.0⭐</span>
+                <p class="text-xs font-medium text-gray-400 mt-1">रेटिंग</p>
             </div>
-            <div class="stat-card p-4 rounded-2xl border border-orange-50 shadow-sm">
-                <span class="block text-xl mb-1">🚀 1000+</span>
-                <p class="text-xs font-semibold text-gray-600">खुश ग्राहक</p>
+            <div class="glass-card p-4 rounded-2xl text-center">
+                <span class="block text-2xl font-black stat-number">5K+</span>
+                <p class="text-xs font-medium text-gray-400 mt-1">डाउनलोड</p>
             </div>
-            <div class="stat-card p-4 rounded-2xl border border-orange-50 shadow-sm col-span-2 sm:col-span-1">
-                <span class="block text-xl mb-1">⏱️ 30 Min</span>
-                <p class="text-xs font-semibold text-gray-600">सुपरफास्ट डिलीवरी</p>
+            <div class="glass-card p-4 rounded-2xl text-center">
+                <span class="block text-2xl font-black stat-number">30m</span>
+                <p class="text-xs font-medium text-gray-400 mt-1">डिलीवरी</p>
             </div>
         </div>
 
-        <div class="relative py-10">
-            <img src="https://drive.google.com/thumbnail?id=1U4cTsUuWtthvOiHhO6z0Y9tuoX4jxGtD&sz=w200-h200" 
-                 alt="KhanaGO" 
-                 class="mx-auto w-24 h-24 object-contain floating opacity-80">
+        <!-- Features -->
+        <div class="space-y-3 mb-10">
+            <div class="glass-card p-4 rounded-xl flex items-center gap-4 text-left">
+                <span class="text-3xl">🍽️</span>
+                <div>
+                    <h3 class="font-bold text-white">50+ रेस्तरां</h3>
+                    <p class="text-sm text-gray-400">हाटा के सभी फेमस रेस्तरां एक जगह</p>
+                </div>
+            </div>
+            <div class="glass-card p-4 rounded-xl flex items-center gap-4 text-left">
+                <span class="text-3xl">🛵</span>
+                <div>
+                    <h3 class="font-bold text-white">फ्री डिलीवरी</h3>
+                    <p class="text-sm text-gray-400">₹199+ के ऑर्डर पर फ्री डिलीवरी</p>
+                </div>
+            </div>
+            <div class="glass-card p-4 rounded-xl flex items-center gap-4 text-left">
+                <span class="text-3xl">💰</span>
+                <div>
+                    <h3 class="font-bold text-white">बेस्ट प्राइस</h3>
+                    <p class="text-sm text-gray-400">एक्सक्लूसिव ऑफर्स और डिस्काउंट</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom CTA -->
+        <div class="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/95 to-transparent z-50">
+            <a href="https://linkly.link/2VyeV" 
+               target="_blank" 
+               class="epic-cta w-full max-w-sm mx-auto py-4 px-6 rounded-xl text-white text-lg font-bold flex items-center justify-center gap-3 active:scale-95 transition-all">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 20.5V3.5C3 2.91 3.34 2.39 3.84 2.15L13.69 12L3.84 21.85C3.34 21.61 3 21.09 3 20.5M16.81 15.12L18.67 14.05C21.45 12.45 21.45 9.55 18.67 7.95L16.81 6.88L14.69 11L16.81 15.12M13.69 12L3.84 2.15C3.89 2.13 3.94 2.12 4 2.12C4.33 2.12 4.67 2.24 4.95 2.4L15.44 8.43L13.69 12M13.69 12L15.44 15.57L4.95 21.6C4.67 21.76 4.33 21.88 4 21.88C3.94 21.88 3.89 21.87 3.84 21.85L13.69 12Z" />
+                </svg>
+                <span>Play Store से डाउनलोड करें</span>
+            </a>
         </div>
 
     </div>
 
+    <!-- WhatsApp Support (smaller, for support only) -->
     <a href="https://wa.me/918149875162?text=नमस्ते KhanaGO, मुझे सहायता चाहिए।" 
        target="_blank" 
-       class="fixed bottom-6 right-6 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-all z-50">
-        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+       class="fixed bottom-20 right-4 bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:scale-110 transition-all z-40 opacity-80">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.539 2.016 2.045-.536c.947.517 1.997.831 3.245.831 3.181 0 5.767-2.586 5.768-5.766 0-3.18-2.587-5.766-5.77-5.766m3.915 7.92c-.16.447-.894.819-1.223.882-.269.051-.62.091-1.81-.393-1.513-.617-2.486-2.153-2.561-2.253-.075-.101-.611-.813-.611-1.55 0-.737.388-1.1.53-1.25.14-.15.31-.188.412-.188.103 0 .205 0 .292.004.1.004.225-.039.352.271.127.31.435 1.06.473 1.138.038.077.064.168.013.271-.051.102-.077.168-.154.258-.077.089-.162.199-.231.269-.077.077-.157.162-.068.316.088.154.394.65.845 1.051.58.515 1.069.675 1.223.751.154.077.243.064.333-.038.09-.101.388-.451.49-.605.103-.154.205-.128.346-.077.141.051.896.422 1.05.499.154.077.256.115.295.18.038.064.038.371-.122.818"/>
         </svg>
     </a>
